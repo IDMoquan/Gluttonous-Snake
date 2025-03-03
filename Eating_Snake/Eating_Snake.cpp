@@ -79,7 +79,6 @@ void Display() {
     setbkcolor(BLACK);
     setbkmode(TRANSPARENT);
     cleardevice();
-    //puts("clear");
     
     //画边框
     Draw_border();
@@ -92,7 +91,6 @@ void Display() {
     setfillcolor(WHITE);
     for (int i = 1; i <= snake.length; i++) {
         solidcircle(snake.body[i].x, snake.body[i].y, 5);
-        //printf("%d %d %d\n", i, snake.body[i].x, snake.body[i].y);
     }
 
     //画墙壁
@@ -333,10 +331,6 @@ void INIT() {
     gold_exist = 0;
 
     Display();
-
-    //flushmessage();
-    // printf("%d\n", snake.head_direction);
-    //fflush(stdin);
 }
 
 char str_frame[30], str_score[30], str_dct[30], str_tottime[30];
@@ -376,8 +370,6 @@ void Start_Instruction() {
     settextcolor(WHITE);
     cleardevice();
     int h = f.lfHeight;
-    //f.lfQuality = ANTIALIASED_QUALITY;
-    //settextstyle(&f);
     for (int i = 1; i <= 255; i++) {
         BeginBatchDraw();
         settextcolor(RGB(i, i, i));
@@ -432,27 +424,20 @@ int main() {
         Draw_menu();
     }
     if (end) {
-        //puts("666");
         closegraph();
         return 0;
     }
     if_menu = 1;
     Summon_gold();
-    //Draw_border();
-    //puts("6666");
     ExMessage msg;
     Start_Instruction();
     gettextstyle(&f);
     int i = 0, op_time = clock();
-    //Move();
     Display();
-    //puts("end");
     Sleep(500);
     while (true) {
-        //puts("runing");
         f.lfHeight = 16;
         settextstyle(&f);
-        //printf("%d\n", snake.length);
         int st_time = clock();
         i++;
         sprintf_s(str_frame, "Frame:%d", i);
@@ -461,8 +446,6 @@ int main() {
         if (clock() - op_time >= 500) {
             cd = 0;
         }
-        //flushmessage();
-        //printf("111\n");
         if (GetAsyncKeyState(VK_UP) & 0x8000) {
             if (snake.direction[0] != DOWN && snake.direction[0] != UP) {
                 if (!cd) {
@@ -500,31 +483,22 @@ int main() {
             }
         }
         else if (GetAsyncKeyState('R') & 0x8000) {
-            //f.lfHeight = 96;
             outtextxy(snake.body[0].x - 80, snake.body[0].y + 50, "再次按下Enter键重新开始");
             Sleep(500);
             flushmessage();
-            //char s = _getch();
-            //puts("111");
             getmessage(&msg, EX_KEY);
             if (msg.ch == VK_RETURN) {
                 if_menu = 0;
-                //puts("666");
                 Restart();
-                //Draw_menu();
                 main();
             }
         }
         else if (GetAsyncKeyState(VK_ESCAPE) & 0x8000) {
-            //f.lfHeight = 96;
             outtextxy(snake.body[0].x - 80, snake.body[0].y + 50, "再次按下Enter键以返回菜单");
             Sleep(500);
             flushmessage();
-            //char s = _getch();
-            //puts("111");
             getmessage(&msg, EX_KEY);
             if (msg.ch == VK_RETURN) {
-                //puts("666");
                 Restart();
 
                 main();
@@ -535,15 +509,16 @@ int main() {
         //else if (GetAsyncKeyState(VK_F4) & 0x8000) {
         //    Summon_body();
         //}
-        ////if (GetAsyncKeyState(VK_F1)) {
-        ////    snake.speed = 2;
-        ////}
-        ////if (GetAsyncKeyState(VK_F2)) {
-        ////    snake.speed = 1;
-        ////}
+        //if (GetAsyncKeyState(VK_F1)) {
+        //    snake.speed = 2;
+        //}
+        //if (GetAsyncKeyState(VK_F2)) {
+        //    snake.speed = 1;
+        //}
         //if (GetAsyncKeyState(VK_F3) & 0x8000) {
         //    break;
         //}
+
         settextcolor(RGB(254, 254, 254));
         BeginBatchDraw();
         Move();
@@ -577,7 +552,6 @@ int main() {
         }
 
         int dr_time = clock() - st_time;
-        //printf("%d\n", dr_time);
         if (dr_time < FPS) {
             Sleep(FPS - dr_time - 1);
         }
